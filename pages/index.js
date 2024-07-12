@@ -30,13 +30,11 @@ function HomePage(props) {
 // }
 
 export async function getStaticProps() {
-  const client = await MongoClient.connect(
-    "mongodb://127.0.0.1:27017/meetups",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  );
+  const uri = process.env.MONGODB_URI;
+  const client = await MongoClient.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
   const db = client.db();
 
   const meetupsCollection = db.collection("meetups");
